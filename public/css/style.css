@@ -1,0 +1,39 @@
+/* Unicamente estilos para el Login */
+
+
+body{
+    background-color: #1d4270;
+
+}
+
+#logoDiv{
+    background: url("../images/loginLogo.png")center no-repeat;
+    height: 100px;
+    width: 100px;
+
+}
+.title-row{
+    margin-bottom: 4%;
+    text-align: center;
+    color: white;
+}
+/*
+form{
+    margin: 4% auto;
+    width: 30%;
+}
+
+
+
+#facebookButton{
+    background-color: rgb(59,87,157);
+    border-color: rgb(59,87,157);
+    color: white;
+}
+
+#topNav{
+    background-color: #001433;
+    color: white;
+}
+*/
+
