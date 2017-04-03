@@ -1,82 +1,34 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+            <div class="panel panel-default" style="margin-left: 20%">  <!--cambiar por externo-->
+                <div class="panel-heading">Crear Sesion</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/gameSession') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Avatar</label>
-
-                            <div class="col-md-6">
-                                <input id="image" type="file" formenctype="multipart/form-data" class="form-control" name="image" value="{{ old('image') }}" required>
-
-                                @if ($errors->has('image'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('image') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
+                            <label for="boardLevelInput" class="col-md-4 control-label">Tamaño del Tablero:</label>
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <select id="boardLevelInput" name="boardLevel">
+                                    <option value="5x5">Facil(5x5)</option>
+                                    <option value="8x8">Medio(8x8)</option>
+                                    <option value="12x12">Dificil(12x12)</option>
+                                </select>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
+                            <label for="NLineInput" class="col-md-4 control-label">Cantidad N Fichas para ganar:</label>
+                            <div class="col-md-6">
+                                <select id="NLineInput" name="nValue">
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-primary">Crear</button>
                     </form>
                 </div>
             </div>

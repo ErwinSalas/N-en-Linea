@@ -22,9 +22,11 @@ Route::get('/homeSection', function () {
     return view('homeSection');
 });
 
+Route::get('/session',function(){
+    return view('sessions.create');
+});
+
 Route::get('/loadGameBoard', 'GameBoardController@loadGameBoardView');
-
-
 
 Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
