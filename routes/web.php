@@ -30,7 +30,7 @@ Route::get('/loadGameBoard', 'GameBoardController@loadGameBoardView');
 
 Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
-
+Route::resource('gamesession','GameSessionController');
 
 Auth::routes();
 
