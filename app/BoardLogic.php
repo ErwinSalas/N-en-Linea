@@ -16,19 +16,21 @@ class BoardLogic
     var $rows = array();
     var $columns = array();
 
-    function __construct()
+    /*function __construct()
     {
         $this->tamañoFila = 5;
         $this->tamañoColumna = 7;
         $this->tamañoTablero = 35;
         $this->numeroGanar = 4;
-    }
-    function __construct2($row,$colum)
+    }*/
+    function __construct($row,$colum)
     {
         $this->tamañoFila = $row;
         $this->tamañoColumna = $colum;
         $this->tamañoTablero = $this->tamañoFila * $this->tamañoColumna;
         $this->numeroGanar = 4;
+
+        $this->crearTablero();
     }
 
     function crearTablero()

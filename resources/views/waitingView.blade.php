@@ -3,6 +3,7 @@
 @section('content')
         <!-- Material sidebar -->
 <div class="containe-fluid">
+    <input type="hidden" id="session_id" value="{{$session->id}}">
     <aside id="sidebar" class="sidebar sidebar-default open" role="navigation">
         <!-- Sidebar header -->
         <div class="sidebar-header header-cover" style="background-image: url(http://2.bp.blogspot.com/-2RewSLZUzRg/U-9o6SD4M6I/AAAAAAAADIE/voax99AbRx0/s1600/14%2B-%2B1%2B%281%29.jpg);">
@@ -87,15 +88,21 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
 
-        loadWelcome();
+
+<script src="{{asset('js/aside.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/scripts/GameSession.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/scripts/gameBoard.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        loadWait();
+        setInterval('waitOponent()',5000);
 
     });
 </script>
 
-<script src="{{asset('js/aside.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/scripts/gameBoard.js')}}" type="text/javascript"></script>
+
+
 <script src="{{asset('js/main.js')}}" type="text/javascript"></script>
 @endsection

@@ -20,7 +20,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Jugador</th>
-                            <th>Tipo</th>
+                            <th>Tamaño</th>
 
                         </tr>
                         </thead>
@@ -28,10 +28,10 @@
                         @foreach($gamesessions as $gamesession)
                             <tr class="board-borders">
                                 <td class="board-borders" >
-                                    {{$gamesession->name}}
+                                    {{$gamesession->player_1->email}}
                                 </td>
                                 <td class="board-borders" >
-                                    {{$gamesession->player_1->name}}
+                                    {{$gamesession->state}}
                                 </td>
                                 <td class="board-borders" >
                                     {{$gamesession->gameboard->number_rows}}

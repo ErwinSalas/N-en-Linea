@@ -13,12 +13,13 @@ class CreateTableGameboard extends Migration
      */
     public function up()
     {
-        Schema::create('gameboard', function (Blueprint $table) {
+        Schema::create('gameboards', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('size');
             $table->integer('rows_number');
             $table->integer('columns_numbers');
             $table->string('board_array')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -17,6 +17,9 @@ body{
     text-align: center;
     color: white;
 }
+#homeLogo{
+    text-align: center;
+}
 /*
 form{
     margin: 4% auto;

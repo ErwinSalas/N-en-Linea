@@ -17,10 +17,10 @@ class GameSessionController extends Controller
      */
     public function index()
     {
-        $gamesessions= Gamesession::all()->where('state', '=', 1);
+        $gamesessions= Gamesession::all()->where('state', '=', 0);
 
 
-        return view('gameSession', ['gamesessions' => $gamesessions] );
+        return view('sessions.index', ['gamesessions' => $gamesessions] );
     }
 
     /**
@@ -42,19 +42,20 @@ class GameSessionController extends Controller
     public function store(Request $request)
     {
         $size=$request->input("size");
-        $board = new BoardLogic(sqrt($size),sqrt($size));
+
+        $board = new BoardLogic($size,$size);
         $gameBoard=Gameboard::create([
-            "size" => $size,
-            "rows_number" => sqrt($size),
-            "columns_numbers"=> sqrt($size),
-            "board_array" => $board
+            "size" => $size*$size,
+            "rows_number" => $size,
+            "columns_numbers"=> $size,
+            "board_array" => (string) implode(",",$board->tablero)
         ]);
-        Gamesession::create([
+        $session=Gamesession::create([
             "player_1_id" => Auth::user()->id,
             "board_id" => $gameBoard->id,
             "state" => 0
         ]);
-
+        return view('waitingView', ['session' => $session] );
 
         //
     }
@@ -102,5 +103,10 @@ class GameSessionController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getSessionJson($id){
+        $session=Gamesession::find($id);
+        return response()->json($session);
+
     }
 }

@@ -15,29 +15,35 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::get('/sessionCreateView', function () {
+    return view('sessions.create');
+});
+
 
 Route::get('/','HomeController@index');
 
 Route::get('/homeSection', function () {
-    return view('homeSection');
+    return view('welcome');
 });
 
 Route::get('/session',function(){
     return view('sessions.create');
+});
+Route::get('/sessionwaiting',function(){
+    return view('waitingView');
+});
+Route::get('/waitSection',function(){
+    return view('sessions.waiting');
 });
 
 Route::get('/loadGameBoard', 'GameBoardController@loadGameBoardView');
 
 Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
-Route::resource('gamesession','GameSessionController');
+Route::resource('gameSession','GameSessionController');
 
 Auth::routes();
 
 
-
-
-
-Auth::routes();
-
+Route::get('/jsongamessesion/{id}', 'GameSessionController@getSessionJson');
 Route::get('/home', 'HomeController@index');

@@ -30,7 +30,7 @@ class User extends Authenticatable
     ];
     public function gamesession()
     {
-        return $this->belongsTo('App\Gamesession');
+        return $this->hasMany('App\Gamesession');
     }
     public function setImageAttribute($image)
     {
