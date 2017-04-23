@@ -18,7 +18,6 @@ function waitOponent(){
             if (data.state!=0){
                 loadGameBoard();
             }
-
         }
     });
 }

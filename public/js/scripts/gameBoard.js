@@ -4,6 +4,7 @@
 
 function loadWait(){
     var route2 = "http://localhost:8000/waitSection";
+
     $.ajax({
         url: route2,
         type: 'GET',
@@ -12,6 +13,24 @@ function loadWait(){
         }
     });
 }
+
+function getCurrentSession(){
+    var sessionID = $('#session_id').val();
+    var route = "http://localhost:8000/sessionInfo/"+sessionID;
+
+    $.ajax({
+        url: route,
+        type: 'GET',
+        success: function(data){
+            var object = data[0];
+            $('#sessionIDHeader').text("Numero de sesion: "+object.sessionID);
+            $('#player1 span').text(object.name);
+            console.log(data);
+            console.log("despues de");
+        }
+    });
+}
+
 
 function loadSessions(){
     var route2 = "http://localhost:8000/gameSession";
@@ -22,10 +41,8 @@ function loadSessions(){
             $("#data_view").html(data);
         }
     });
-
-
-
 }
+
 function loadWelcome(){
     var route = "http://localhost:8000/homeSection";
     $.ajax({

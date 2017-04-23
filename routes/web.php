@@ -36,13 +36,14 @@ Route::get('/waitSection',function(){
 });
 
 Route::get('/loadGameBoard', 'GameBoardController@loadGameBoardView');
-
 Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 Route::resource('gameSession','GameSessionController');
 
 Auth::routes();
 
-
 Route::get('/jsongamessesion/{id}', 'GameSessionController@getSessionJson');
+
+Route::get('/sessionInfo/{id}', 'GameSessionController@getAllSessionInfo');
+Route::get('/deleteSession/{id}','GameSessionController@destroy');
 Route::get('/home', 'HomeController@index');

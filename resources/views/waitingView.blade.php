@@ -69,7 +69,7 @@
             <li>
                 <a href="#">
                     <i class="sidebar-icon glyphicon glyphicon-tags"></i>
-                    Nivel:
+                    Nivel: {{$session->id}}
                 </a>
             </li>
         </ul>
@@ -82,9 +82,7 @@
     <div class="container" id="data_view">
 
     </div>
-
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -94,15 +92,10 @@
 <script src="{{asset('js/scripts/GameSession.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/scripts/gameBoard.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
-
     $(document).ready(function(){
         loadWait();
+        getCurrentSession();
         setInterval('waitOponent()',5000);
-
     });
 </script>
-
-
-
-<script src="{{asset('js/main.js')}}" type="text/javascript"></script>
 @endsection

@@ -48,3 +48,7 @@ body{
 #createdSessionButtons button{
     margin: 0 10px;
 }
+
+#sessionsPanel{
+    width: 800px;
+}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Gameboard;
 use App\Gamesession;
 use App\BoardLogic;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,8 +28,6 @@ class GameSessionController extends Controller
             })
             ->select('users.name','users.score','gameboards.rows_number','gameboards.id as boardID')
             ->get();
-
-        print($gamesessions);
 
         return view('sessions.index', ['gamesessions' => $gamesessions] );
     }
@@ -66,8 +65,6 @@ class GameSessionController extends Controller
             "state" => 0
         ]);
         return view('waitingView', ['session' => $session] );
-
-        //
     }
 
     /**
@@ -112,11 +109,24 @@ class GameSessionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $session = Gamesession::find($id);
+        $session->delete();
+        return response()->json(["msg"=>"Eliminada con exito"]);
     }
+
     public function getSessionJson($id){
         $session=Gamesession::find($id);
         return response()->json($session);
+    }
 
+    public function getAllSessionInfo($session_id){
+        $res = DB::table('gamesessions')
+            ->where('gamesessions.id', $session_id)
+            ->join('gameboards','gamesessions.board_id','=','gameboards.id')
+            ->join('users','gamesessions.player_1_id','=','users.id')
+            ->select('gamesessions.id as sessionID','users.name','gameboards.rows_number')
+            ->get();
+
+        return response()->json($res);
     }
 }

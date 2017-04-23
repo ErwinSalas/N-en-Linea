@@ -3,7 +3,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary" style="margin-left: 20%">  <!--cambiar por externo-->
                 <div class="panel-heading">
-                    <h5>Sesión # 5</h5>
+                    <h5 id="sessionIDHeader"></h5>
                 </div>
                 <div class="panel-body">
                     <div class="playersInfo">
@@ -19,10 +19,24 @@
                     <h5 id="wait"></h5>
                     <div id="createdSessionButtons">
                         <button type="button" class="btn btn-success disabled">Jugar</button>
-                        <button type="button" class="btn btn-danger">Cancelar Sesion</button>
+                        <button type="button" class="btn btn-danger" id="cancelSessionBtn">Cancelar Sesion</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $('#cancelSessionBtn').on('click',function () {
+        var sessionID = $('#session_id').val();
+        var route = "http://localhost:8000/deleteSession/"+sessionID;
+
+        $.ajax({
+            url: route,
+            type: 'GET',
+            success: function(data){
+                alert(data.msg);
+            }
+        });
+    });
+</script>

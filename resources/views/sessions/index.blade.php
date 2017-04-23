@@ -1,7 +1,7 @@
 <div class="container" style="padding-left: 279px;">
     <div class="row">
         <div class="col-md-6">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" id="sessionsPanel">
                 <div class="panel-heading">
                     <h3 class="panel-title">Salas de juego disponibles</h3>
                 </div>
