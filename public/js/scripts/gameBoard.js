@@ -3,7 +3,6 @@
  */
 
 function loadWait(){
-
     var route2 = "http://localhost:8000/waitSection";
     $.ajax({
         url: route2,
@@ -12,10 +11,8 @@ function loadWait(){
             $("#data_view").html(data);
         }
     });
-
-
-
 }
+
 function loadSessions(){
     var route2 = "http://localhost:8000/gameSession";
     $.ajax({

@@ -5,9 +5,9 @@ function waitOponent(){
     var textTag = $("#wait");
     var id = $("#session_id").val();
 
-    console.log("entro ciclo");
-    textTag.html("Esperando jugador.");
-    textTag.html("Esperando jugador..");
+    console.log("entra ciclo");
+    var icon = "<i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i><span id=\"hintSpan\">Esperando a jugador 2...</span>";
+    textTag.html(icon);
     var route = "http://localhost:8000/jsongamessesion/"+id;
     $.ajax({
         url: route,
@@ -21,6 +21,4 @@ function waitOponent(){
 
         }
     });
-    textTag.html("Esperando jugador....");
-
 }

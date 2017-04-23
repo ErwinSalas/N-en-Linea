@@ -7,6 +7,8 @@ use App\Gamesession;
 use App\BoardLogic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class GameSessionController extends Controller
 {
@@ -17,8 +19,16 @@ class GameSessionController extends Controller
      */
     public function index()
     {
-        $gamesessions= Gamesession::all()->where('state', '=', 0);
+        $gamesessions= DB::table('gamesessions')
+            ->join('gameboards','gamesessions.board_id','=','gameboards.id')
+            ->join('users', function ($join) {
+                $join->on('users.id', '=', 'gamesessions.player_1_id')
+                    ->where('gamesessions.state', '=', 0   );
+            })
+            ->select('users.name','users.score','gameboards.rows_number','gameboards.id as boardID')
+            ->get();
 
+        print($gamesessions);
 
         return view('sessions.index', ['gamesessions' => $gamesessions] );
     }

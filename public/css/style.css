@@ -1,42 +1,50 @@
-/* Unicamente estilos para el Login */
-
-
 body{
     background-color: #1d4270;
-
 }
 
 #logoDiv{
     background: url("../images/loginLogo.png")center no-repeat;
     height: 100px;
     width: 100px;
-
 }
+
 .title-row{
     margin-bottom: 4%;
     text-align: center;
     color: white;
 }
+
 #homeLogo{
     text-align: center;
 }
-/*
-form{
-    margin: 4% auto;
-    width: 30%;
+
+/*new*/
+.playersInfo{
+    text-align: justify;
+    margin: 5px auto 5% auto;
 }
 
-
-
-#facebookButton{
-    background-color: rgb(59,87,157);
-    border-color: rgb(59,87,157);
-    color: white;
+.playersInfo div{
+    padding-left: 30%;
 }
 
-#topNav{
-    background-color: #001433;
-    color: white;
+.panel{
+    text-align: center;
 }
-*/
 
+.panel-body{
+    color: black;
+}
+
+#hintSpan{
+    display: block;
+    font-style: italic;
+}
+
+#createdSessionButtons{
+    padding-top: 20px;
+}
+
+#createdSessionButtons button{
+    margin: 0 10px;
+}

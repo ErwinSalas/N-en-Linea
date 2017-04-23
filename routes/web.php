@@ -19,7 +19,6 @@ Route::get('/sessionCreateView', function () {
     return view('sessions.create');
 });
 
-
 Route::get('/','HomeController@index');
 
 Route::get('/homeSection', function () {
