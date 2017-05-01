@@ -39,6 +39,7 @@ Route::get('/loadGameBoard', 'GameBoardController@loadGameBoardView');
 Route::get('/joinSession', 'GameSessionController@joinSession/{sessionId}/{playerID}');
 Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+
 Route::resource('gameSession','GameSessionController');
 
 Auth::routes();

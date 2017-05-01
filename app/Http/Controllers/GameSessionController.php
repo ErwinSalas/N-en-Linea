@@ -98,7 +98,11 @@ class GameSessionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $selectedSession = Gamesession::find($id);
+        $selectedSession->state = 1;
+        $selectedSession->player_2 = Auth::user()->id;
+        $selectedSession->save();
+        return response()->json($selectedSession);
     }
 
     /**

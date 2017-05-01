@@ -8,7 +8,7 @@ function waitOponent(){
     console.log("entra ciclo");
     var icon = "<i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i><span id=\"hintSpan\">Esperando a jugador 2...</span>";
     textTag.html(icon);
-    var route = "http://localhost:8000/jsongamessesion/"+id;
+    var route = serverRoute+"/jsongamessesion/"+id;
     $.ajax({
         url: route,
         type: 'GET',

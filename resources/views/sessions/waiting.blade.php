@@ -29,13 +29,14 @@
 <script>
     $('#cancelSessionBtn').on('click',function () {
         var sessionID = $('#session_id').val();
-        var route = "http://localhost:8000/deleteSession/"+sessionID;
+        var route = serverRoute+"/deleteSession/"+sessionID;
 
         $.ajax({
             url: route,
             type: 'GET',
             success: function(data){
                 alert(data.msg);
+                window.location.assign(serverRoute+"/home");
             }
         });
     });
