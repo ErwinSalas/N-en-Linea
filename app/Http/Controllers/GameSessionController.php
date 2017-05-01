@@ -23,7 +23,7 @@ class GameSessionController extends Controller
         $gamesessions= DB::table('gamesessions')
             ->join('gameboards','gamesessions.board_id','=','gameboards.id')
             ->join('users', function ($join) {
-                $join->on('users.id', '=', 'gamesessions.player_1_id')
+                $join->on('users.id', '=', 'gamesessions.player1_id')
                     ->where('gamesessions.state', '=', 0   );
             })
             ->select('users.name','users.score','gameboards.rows_number','gameboards.id as boardID')
@@ -60,7 +60,7 @@ class GameSessionController extends Controller
             "board_array" => (string) implode(",",$board->tablero)
         ]);
         $session=Gamesession::create([
-            "player_1_id" => Auth::user()->id,
+            "player1_id" => Auth::user()->id,
             "board_id" => $gameBoard->id,
             "state" => 0
         ]);
@@ -128,5 +128,12 @@ class GameSessionController extends Controller
             ->get();
 
         return response()->json($res);
+    }
+    public function join($sessionId,$playerID){
+
+        $gameBoard=Gameboard::find($sessionId);
+
+
+
     }
 }

@@ -8,11 +8,17 @@ class Gamesession extends Model
 {
     //
     protected $fillable = [
-        'player_1_id', 'player_2_id',  'board_id', 'state'
+        'player1_id', 'player2_id',  'board_id', 'state'
     ];
-    public function player_1()
+    public function user($player)
     {
-        return $this->hasOne('App\User');
+        if($player==1){
+            return $this->hasOne('App\User','player1_id');
+        }
+        else{
+            return $this->hasOne('App\User','player2_id');
+        }
+
     }
 
     public function player_2()

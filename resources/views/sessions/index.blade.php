@@ -32,7 +32,7 @@
                                         {{$gamesession->rows_number}}x{{$gamesession->rows_number}}
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-success">Unirse</button>
+                                        <a type="button" class="btn btn-success" href="http://localhost:8000/joinSession/({{$gamesession->id}}/{{Auth::user()->id}})">Unirse</a>
                                     </td>
                                 </tr>
                             @endforeach
