@@ -21,6 +21,7 @@
                                 <tr class="board-borders">
                                     <td>
                                         {{$gamesession->boardID}}
+                                        <input type="hidden" id="sessionID" value="{{$gamesession->id}}">
                                     </td>
                                     <td class="board-borders" >
                                         {{$gamesession->name}}
@@ -32,7 +33,7 @@
                                         {{$gamesession->rows_number}}x{{$gamesession->rows_number}}
                                     </td>
                                     <td>
-                                        <a type="button" class="btn btn-success" href="http://localhost:8000/joinSession/({{$gamesession->id}}/{{Auth::user()->id}})">Unirse</a>
+                                        <button type="button" id="joinBtn" class="btn btn-success">Unirse</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -43,3 +44,18 @@
         </div>
     </div>
 </div>
+<script>
+    $('button').on('click',function () {
+        var sessionID = $('#sessionID').val();
+        var route = serverRoute + "/joinSession/" + sessionID;
+        console.log(route);
+
+        $.ajax({
+            url: route,
+            type: 'GET',
+            success: function(data){
+                $("#data_view").html(data);
+            }
+        });
+    });
+</script>

@@ -36,7 +36,7 @@ Route::get('/waitSection',function(){
 });
 
 Route::get('/loadGameBoard', 'GameBoardController@loadGameBoardView');
-Route::get('/joinSession', 'GameSessionController@joinSession/{sessionId}/{playerID}');
+Route::get('/joinSession/{sessionId}', 'GameSessionController@join');
 Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 

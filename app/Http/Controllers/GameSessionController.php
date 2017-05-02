@@ -23,10 +23,10 @@ class GameSessionController extends Controller
         $gamesessions= DB::table('gamesessions')
             ->join('gameboards','gamesessions.board_id','=','gameboards.id')
             ->join('users', function ($join) {
-                $join->on('users.id', '=', 'gamesessions.player1_id')
-                    ->where('gamesessions.state', '=', 0   );
+                $join->on('users.id', '=', 'gamesessions.player_1_id')
+                    ->where('gamesessions.state', '=', 0);
             })
-            ->select('users.name','users.score','gameboards.rows_number','gameboards.id as boardID')
+            ->select('users.name','users.score','gameboards.rows_number','gameboards.id as boardID','gamesessions.id')
             ->get();
 
         return view('sessions.index', ['gamesessions' => $gamesessions] );
@@ -60,7 +60,7 @@ class GameSessionController extends Controller
             "board_array" => (string) implode(",",$board->tablero)
         ]);
         $session=Gamesession::create([
-            "player1_id" => Auth::user()->id,
+            "player_1_id" => Auth::user()->id,
             "board_id" => $gameBoard->id,
             "state" => 0
         ]);
@@ -98,11 +98,7 @@ class GameSessionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $selectedSession = Gamesession::find($id);
-        $selectedSession->state = 1;
-        $selectedSession->player_2 = Auth::user()->id;
-        $selectedSession->save();
-        return response()->json($selectedSession);
+        //
     }
 
     /**
@@ -133,11 +129,15 @@ class GameSessionController extends Controller
 
         return response()->json($res);
     }
-    public function join($sessionId,$playerID){
 
-        $gameBoard=Gameboard::find($sessionId);
+    public function join($sessionId){
+        $selectedSession = Gamesession::find($sessionId);
+        $selectedSession->state = 1;
+        $selectedSession->player_2_id = Auth::user()->id;
+        $selectedSession->save();
 
+        $res = Gameboard::find($selectedSession->board_id);
 
-
+        return view('board', ['GameBoard' => $res] );
     }
 }
