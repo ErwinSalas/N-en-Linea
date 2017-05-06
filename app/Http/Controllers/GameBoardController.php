@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Board;
-use Illuminate\View\View;
 
 class GameBoardController extends Controller
 {
@@ -35,7 +32,6 @@ class GameBoardController extends Controller
     }
     public function playerDoMove(Request $request)
     {
-
         $this->gameBoard->pullCoin($request->column,$this->turn);
         if($this->turn){
             $this->turn=false;
@@ -44,6 +40,19 @@ class GameBoardController extends Controller
             $this->turn=true;
         }
         return view('board', ['GameBoard' => $this->gameBoard]);
+    }
 
+
+    public function pcDoMove()
+    {
+        $this->gameBoard->easyModePC();
+        if($this->turn){
+            $this->turn=false;
+        }
+        else{
+            $this->turn=true;
+        }
+        return view('board', ['GameBoard' => $this->gameBoard]);
     }
 }
+

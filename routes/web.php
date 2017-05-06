@@ -35,6 +35,10 @@ Route::get('/waitSection',function(){
     return view('sessions.waiting');
 });
 
+#kae
+Route::get('/pushTile', 'GameBoardController@loadGameBoardView');
+
+#kae
 Route::get('/loadGameBoard', 'GameBoardController@loadGameBoardView');
 Route::get('/joinSession/{sessionId}', 'GameSessionController@join');
 Route::get('auth/facebook', 'Auth\LoginController@redirectToProvider');

@@ -80,14 +80,36 @@ function loadGameBoard(){
 function userPressTile(tile){
     var col=parseInt(tile.id);
 
-    console.log("columna",col);
+    console.log("columna",col,"turno",turn);
     var route = serverRoute+"/loadGameBoard";
     $.ajax({
         url: route,
         type: 'GET',
         dataType: 'json',
         data: {
-            column : col
+            column : col,
+            turn : turn
+        },
+        success: function(data){
+            $("#data_view").html(data);
+        }
+    });
+}
+
+
+function pcPressTile(){
+
+
+    console.log("columna",col,"turno",turn);
+    var route = serverRoute+"/loadGameBoard";
+
+    $.ajax({
+        url: route,
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            column : col,
+            turn : turn
         },
         success: function(data){
             $("#data_view").html(data);

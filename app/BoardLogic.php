@@ -1,10 +1,11 @@
 <?php
 namespace App;
 
+use phpDocumentor\Reflection\Types\Null_;
+use phpDocumentor\Reflection\Types\This;
 
-class BoardLogic
+class Tablero
 {
-
     var $tamañoTablero;
     var $tamañoFila;
     var $tamañoColumna;
@@ -16,22 +17,19 @@ class BoardLogic
     var $rows = array();
     var $columns = array();
 
-
-    /*function __construct()
+    function __construct()
     {
         $this->tamañoFila = 5;
-        $this->tamañoColumna = 7;
-        $this->tamañoTablero = 35;
+        $this->tamañoColumna = 5;
+        $this->tamañoTablero = 25;
         $this->numeroGanar = 4;
-    }*/
-    function __construct($row,$colum)
+    }
+    function __construct2($row,$colum)
     {
         $this->tamañoFila = $row;
         $this->tamañoColumna = $colum;
         $this->tamañoTablero = $this->tamañoFila * $this->tamañoColumna;
         $this->numeroGanar = 4;
-
-        $this->crearTablero();
     }
 
     function crearTablero()
@@ -285,7 +283,7 @@ class BoardLogic
 
         $column = $this->columns[$numColumn];
 
-        $long = count($column); // se obtiene la cantidad de objetos dentro de la lista de columna
+        $long = $this->tamañoFila; // se obtiene la cantidad de objetos dentro de la lista de columna
 
         for ($i = $long - 1; $i >= 0; $i--) { // recorre la columna buscando el espacio vacio.
 
@@ -302,12 +300,9 @@ class BoardLogic
     }
     function getFreeSpaces(){
 
-        #de ultimo esta la fila y primero esta la columna en moveControl
-        $numRow = 0;
-        $column = $this->columns;
 
 
-        $long = count($column); // se obtiene la cantidad de objetos dentro de la lista de columna
+        $long = $this->tamañoColumna;// se obtiene la cantidad de objetos dentro de la lista de columna
 
         for ($i = $long - 1; $i >= 0; $i--) { // recorre la columna buscando el espacio vacio.
 
@@ -321,12 +316,13 @@ class BoardLogic
     function easyModePC(){
         $this->getFreeSpaces();
         $numTemp = rand(0,((count($this->freeSpaces)/2)-1));
-        echo (count($this->freeSpaces)/2);
-        $col = 0;
-        for ($i = $numTemp - 1; $i >= 0; $i--) {
 
-            $col =  array_pop($this->freeSpaces[$i]);
-            array_pop($this->freeSpaces[$i]);
+        $col = 0;
+        for ($i = $numTemp; $i >0; $i--) {
+
+            $col =  array_pop($this->freeSpaces);
+            # echo "Columna: ".$col;
+            array_pop($this->freeSpaces);
 
         }
 
@@ -334,13 +330,6 @@ class BoardLogic
         $this->pullCoin($col,'Red'); ## llamamos el metodo meter ficha.
 
     }
-
-
-
-
-
-
-
 
     function medModePC(){
 
@@ -354,13 +343,21 @@ class BoardLogic
         foreach ($coords as $space){
 
             if($space[1] == -1 || $space[0] == -1 || $space[1] > ($this->tamañoFila-1) || $space[0] > ($this->tamañoColumna-1)){ #elimina los espacios que no existen en la matriz
+                # $key = array_search($space, $coords);
 
+                # if ( $key !== false ) {
+                #    unset($coords[$key]);
+                # }
                 $this->array_delete($coords,$space); // elimina esa coordenada inexistente de las cuatro posibles
 
             }else{
 
                 if($this->tablero[$this->columns[$space[1]][$space[0]]] != '0'){ # si existe la coordenada verifique que esté vacio si no quitelo de la lista de coordenadas
+                    #  $key = array_search($space, $coords);
 
+                    # if ( $key !== false ) {
+                    #    unset($coords[$key]);
+                    # }
                     $this->array_delete($coords,$space); # elimna la coordenada si no esta vacia ( ocn 0)
 
                 }
@@ -368,19 +365,65 @@ class BoardLogic
 
         }
 
-        $tmList = count($coords); # sacamos la cantidad de posiciones
+
+
+
+
+        $regroupCoords = $this->reorderCoords($coords); #se reordena la lista de coordenadas
+
+        $tmList = count($regroupCoords); # sacamos la cantidad de posiciones
 
         $getCol = rand(0,($tmList-1)); # hacemos un random para eliegir una posicion
-        $tmpCol = $coords[$getCol];
 
-        $newCol = $tmpCol[1];
-        #echo  $newCol;
+        $tmpCol = $regroupCoords[$getCol]; # se selecciona la coordenada
 
-        echo " num posibles: ".$tmList;
-        echo " de los espacios se eligio: ".$newCol."<br />\r\n";
-        $this->pullCoin($newCol,'Red'); ## llamamos el metodo meter ficha.
+        $newCol = $tmpCol[1]; # se elije la columna
+        $this->array_delete($regroupCoords,$regroupCoords[$getCol]); # elimna la coordenada si no esta vacia ( ocn 0)
+
+        While(true){ ## ciclo , en caso de que la posicion esté llena entonces cambie y en caso de que ninguna opcion esté vacia entonces lejia otros
+
+            if($this->pullCoin($newCol,'Red') == false){ # si da false es porque no hay campo en ese espacio
+
+                if(empty($regroupCoords)) { // si la lista está vacia es porque no habian espacios
+                    easyModePC(); #llama este metodo para que inserte la ficha en algun campo aleatoreamente
+                    break;
+                }
+
+                $regroupCoords = $this->reorderCoords($regroupCoords);#se reordena la lista de coordenadas
+
+                $tmList = count($regroupCoords); # sacamos la cantidad de posiciones
+
+                $getCol = rand(0,($tmList-1)); # hacemos un random para eliegir una posicion
+
+                $tmpCol = $regroupCoords[$getCol]; # se selecciona la coordenada
+
+                $newCol = $tmpCol[1]; # se elije la columna
+
+                $this->array_delete($regroupCoords,$regroupCoords[$getCol]); # elimna la coordenada si no esta vacia ( ocn 0)
+            }else{
+                break;
+            }
+
+        }
+
+
+
+        #echo " num posibles: ".$tmList;
+        #echo " de los espacios se eligio: ".$newCol."<br />\r\n";
+        # $this->pullCoin($newCol,'Red'); ## llamamos el metodo meter ficha.
 
     }
+
+    function reorderCoords($coords){
+        $lista = array();
+        foreach($coords as $cord){
+            array_push($lista,[$cord[0],$cord[1]]);
+
+        }
+
+        return $lista;
+    }
+
     function array_delete(&$array, $value, $strict = TRUE) {
         $count = 0;
         if ($strict) {
@@ -406,13 +449,13 @@ class BoardLogic
         #echo "Fila: ".$row. " Columna: ".$col;
         $lista = array();
         $up = [$row,$col - 1];
-        echo "Fila: ".$row. " Columna: ".($col-1);
+        # echo "Fila: ".$row. " Columna: ".($col-1);
         $izq = [$row -1 ,$col];
-        echo "Fila: ".($row - 1)." Columna: ".$col;
+        # echo "Fila: ".($row - 1)." Columna: ".$col;
         $der = [$row +1 ,$col];
-        echo "Fila: ".($row + 1)." Columna: ".$col;
+        #  echo "Fila: ".($row + 1)." Columna: ".$col;
         $dwn = [$row,$col + 1];
-        echo "Fila: ".$row." Columna: ".($col+1);
+        #  echo "Fila: ".$row." Columna: ".($col+1);
         array_push($lista,$up,$izq,$der,$dwn);
 
         return $lista;
@@ -448,14 +491,14 @@ class BoardLogic
             }
 
             if ($i == 0) {
-                return 'LLeno'; // si no hay espacios entonces mostrar mensaje
+                return false; // si no hay espacios entonces mostrar mensaje
             }
 
         }
 
         $this->checkWinner($column,$coin,$numRow,$numColumn);
 
-
+        return true;
 
 
 
@@ -472,6 +515,20 @@ class BoardLogic
                 echo " / "."<br />\r\n";}
             $counter+=1;
             echo $space;
+
+
+        }
+    }
+
+
+    public function imprimeLista($lista){
+        $counter = 0;
+        foreach($lista as $space){
+
+            foreach ($space as $x)
+                echo $x;
+
+
         }
     }
 
@@ -482,3 +539,7 @@ class BoardLogic
 
 
 ?>
+
+
+
+
